@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO Meta Tags & Branding -->
+    <title>Montut Convert MP4 - Fast & Free Online Video to MP4 Converter</title>
+    <meta name="description" content="Convert your videos to MP4 online for free with Montut Convert MP4. Secure, fast, high-quality conversion with compression and resolution options.">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Montut Convert MP4 - Free Online Video Converter">
+    <meta property="og:description" content="Easily convert videos to MP4 online. Choose quality settings and download instantly.">
+    <meta property="og:type" content="website">
+    <!-- <meta property="og:image" content="url_to_your_preview_image.jpg"> -->
+    <!-- <meta property="og:url" content="your_website_url"> -->
+
+    <style>
+        /* Enhanced Styling */
+        :root {
+            --primary-color: #4a90e2; /* Softer Blue */
+            --primary-hover: #357abd;
+            --secondary-color: #f5a623; /* Accent Orange */
+            --success-color: #7ed321; /* Bright Green */
+            --success-hover: #68b318;
+            --light-gray: #f8f9fa;
+            --medium-gray: #e9ecef;
+            --dark-gray: #6c757d;
+            --text-color: #343a40;
+            --white: #fff;
+            --danger-color: #dc3545;
+            --header-gradient: linear-gradient(135deg, #4a90e2 0%, #63a4ff 100%);
+            --box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light-gray);
+            margin: 0;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .page-header {
+            background: var(--header-gradient);
+            color: var(--white);
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .page-header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 600;
+        }
+        .page-header p {
+            margin-top: 5px;
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+
+        @media (min-width: 992px) {
+            .main-content {
+                grid-template-columns: 2fr 1fr; /* Main converter area and sidebar */
+            }
+        }
+
+        .converter-section, .info-section, .stats-section, .how-to-section {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: var(--box-shadow);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 1.6em;
+            border-bottom: 2px solid var(--medium-gray);
+            padding-bottom: 10px;
+        }
+
+        /* Converter Form Specific Styles */
+        #uploadForm label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark-gray);
+            font-size: 0.95em;
+        }
+
+        input[type="file"], select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid var(--medium-gray);
+            border-radius: 6px;
+            font-size: 1em;
+            background-color: #fdfdfd;
+        }
+        input[type="file"] {
+            border: 2px dashed var(--medium-gray);
+            background-color: var(--light-gray);
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+        }
+        input[type="file"]:hover {
+            background-color: var(--medium-gray);
+            border-color: var(--primary-color);
+        }
+        /* Style the file input button text */
+        input[type="file"]::file-selector-button {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: background-color 0.3s ease;
+            margin-right: 10px; /* Space between button and text */
+        }
+        input[type="file"]::file-selector-button:hover {
+            background-color: var(--primary-hover);
+        }
+
+
+        button#convertButton {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 14px 25px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            width: 100%;
+            margin-top: 10px;
+        }
+        button#convertButton:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+        button#convertButton:disabled {
+            background-color: #bdc3c7; /* Disabled color */
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Status Area */
+        #status {
+            margin-top: 25px;
+            padding: 15px;
+            background-color: var(--light-gray);
+            border-radius: 6px;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-weight: 500;
+            color: var(--dark-gray);
+            border: 1px solid var(--medium-gray);
+        }
+        #status.status-error {
+             color: var(--danger-color);
+             border-color: var(--danger-color);
+             background-color: #f8d7da;
+        }
+        #status.status-success {
+             color: #155724; /* Darker green text */
+             border-color: var(--success-color);
+             background-color: #d4edda;
+        }
+
+        /* Spinner */
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border-left-color: var(--primary-color);
+            animation: spin 1s linear infinite;
+            display: none; /* Hidden initially */
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Download Link */
+        #downloadLink {
+            display: none; /* Hidden initially */
+            margin-top: 20px;
+            padding: 14px 25px;
+            background-color: var(--success-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: background-color 0.3s ease;
+            font-size: 1.1em;
+            font-weight: 600;
+            text-align: center;
+        }
+        #downloadLink:hover {
+            background-color: var(--success-hover);
+        }
+
+        /* Ad Placeholder */
+        #ad-placeholder {
+            margin-top: 25px;
+            min-height: 90px;
+            background-color: #eee;
+            border: 1px dashed var(--medium-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark-gray);
+            font-size: 0.9em;
+            border-radius: 6px;
+        }
+
+        /* Info Section Styling */
+        .features-list, .how-to-steps {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .features-list li, .how-to-steps li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 1.05em;
+        }
+        .features-list .icon, .how-to-steps .step-number {
+            font-size: 1.5em;
+            margin-right: 15px;
+            color: var(--primary-color);
+            flex-shrink: 0;
+            width: 30px; /* Ensure alignment */
+            text-align: center;
+        }
+         .how-to-steps .step-number {
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9em;
+            font-weight: bold;
+         }
+
+        /* Stats Section */
+        .stats-container {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .stat-item .number {
+            font-size: 2em;
+            font-weight: 600;
+            color: var(--secondary-color);
+            display: block;
+        }
+        .stat-item .label {
+            font-size: 0.9em;
+            color: var(--dark-gray);
+        }
+
+        /* Footer */
+        .page-footer {
+            background-color: var(--text-color);
+            color: var(--medium-gray);
+            padding: 30px 20px;
+            text-align: center;
+            margin-top: 50px;
+            font-size: 0.9em;
+        }
+        .page-footer a {
+            color: var(--white);
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.2s ease;
+        }
+        .page-footer a:hover {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+        .page-footer p {
+            margin-top: 15px;
+            margin-bottom: 0;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .page-header h1 { font-size: 2em; }
+            .main-content { grid-template-columns: 1fr; gap: 30px; margin-top: 30px;}
+            .converter-section, .info-section, .stats-section, .how-to-section { padding: 20px; }
+            h2 { font-size: 1.4em; }
+            .stats-container { flex-direction: column; gap: 15px; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header class="page-header">
+        <h1>Montut Convert MP4</h1>
+        <p>Your simple, fast, and free solution for converting videos to MP4 online.</p>
+    </header>
+
+    <main class="main-content">
+        <!-- Converter Area -->
+        <section class="converter-section">
+            <h2>Start Converting Now</h2>
+            <form id="uploadForm" enctype="multipart/form-data">
+                <!-- File Input -->
+                <label for="videoFile">1. Choose Your Video File:</label>
+                <input type="file" id="videoFile" name="videoFile" accept="video/*" required>
+
+                <!-- Conversion Options -->
+                <label for="compressionLevel">2. Select Compression Level:</label>
+                <select id="compressionLevel" name="compressionLevel">
+                    <option value="medium" selected>Medium (Recommended Balance)</option>
+                    <option value="high">High (Smaller File Size)</option>
+                    <option value="low">Low (Best Possible Quality)</option>
+                </select>
+
+                <label for="outputResolution">3. Choose Output Resolution:</label>
+                <select id="outputResolution" name="outputResolution">
+                    <option value="original" selected>Keep Original Resolution</option>
+                    <option value="1080p">1080p (Full HD)</option>
+                    <option value="720p">720p (HD)</option>
+                    <option value="480p">480p (Standard Definition)</option>
+                </select>
+
+                <!-- Submit Button -->
+                <button type="submit" id="convertButton">🚀 Convert to MP4</button>
+            </form>
+
+            <!-- Status Display Area -->
+            <div id="status">
+                <div class="spinner" id="spinner"></div>
+                <span id="statusText">Ready to convert your video!</span>
+            </div>
+
+             <!-- Ad Placeholder -->
+             <div id="ad-placeholder">Advertisement Placeholder</div>
+
+            <!-- Download Link Area -->
+            <a id="downloadLink" href="#" download>⬇️ Download Converted MP4</a>
+        </section>
+
+        <!-- Sidebar / Info Area -->
+        <aside class="sidebar">
+            <!-- Features Section -->
+            <section class="info-section">
+                <h2>Why Choose Us?</h2>
+                <ul class="features-list">
+                    <li><span class="icon">🔒</span> Secure & Private Uploads</li>
+                    <li><span class="icon">⚡</span> Lightning-Fast Conversion</li>
+                    <li><span class="icon">✨</span> High-Quality MP4 Output</li>
+                    <li><span class="icon">⚙️</span> Customizable Settings</li>
+                    <li><span class="icon">📱</span> Mobile Friendly Design</li>
+                </ul>
+            </section>
+
+            <!-- Mock Stats Section -->
+            <section class="stats-section">
+                 <h2>Our Achievements</h2>
+                 <div class="stats-container">
+                     <div class="stat-item">
+                         <span class="number">1M+</span>
+                         <span class="label">Files Converted</span>
+                     </div>
+                     <div class="stat-item">
+                         <span class="number">50K+</span>
+                         <span class="label">Happy Users</span>
+                     </div>
+                     <div class="stat-item">
+                         <span class="number">99%</span>
+                         <span class="label">Uptime</span>
+                     </div>
+                 </div>
+            </section>
+
+            <!-- How It Works Section -->
+            <section class="how-to-section">
+                <h2>How It Works</h2>
+                <ol class="how-to-steps">
+                    <li><span class="step-number">1</span> Upload your video file.</li>
+                    <li><span class="step-number">2</span> Select desired quality options.</li>
+                    <li><span class="step-number">3</span> Click "Convert to MP4".</li>
+                    <li><span class="step-number">4</span> Download your converted file!</li>
+                </ol>
+            </section>
+        </aside>
+    </main>
+
+    <footer class="page-footer">
+        <a href="#privacy">Privacy Policy</a> |
+        <a href="#terms">Terms of Service</a> |
+        <a href="#contact">Contact Us</a>
+        <p>&copy; 2025 Montut Convert MP4. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Get references to DOM elements
+        const uploadForm = document.getElementById('uploadForm');
+        const videoFile = document.getElementById('videoFile');
+        const compressionLevel = document.getElementById('compressionLevel');
+        const outputResolution = document.getElementById('outputResolution');
+        const convertButton = document.getElementById('convertButton');
+        const statusDiv = document.getElementById('status');
+        const statusText = document.getElementById('statusText');
+        const spinner = document.getElementById('spinner');
+        const downloadLink = document.getElementById('downloadLink');
+
+        // Function to update status display
+        function updateStatus(message, showSpinner = false, statusType = 'info') { // statusType: 'info', 'success', 'error'
+            statusText.textContent = message;
+            spinner.style.display = showSpinner ? 'inline-block' : 'none'; // Use inline-block for spinner
+
+            // Reset status classes
+            statusDiv.classList.remove('status-success', 'status-error');
+
+            if (statusType === 'success') {
+                statusDiv.classList.add('status-success');
+            } else if (statusType === 'error') {
+                statusDiv.classList.add('status-error');
+            }
+            // 'info' uses default styling (no extra class)
+        }
+
+        // Add event listener for form submission
+        uploadForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            if (!videoFile.files || videoFile.files.length === 0) {
+                updateStatus('Please select a video file first.', false, 'error');
+                return;
+            }
+
+            // Disable button and update status
+            convertButton.disabled = true;
+            convertButton.innerHTML = 'Processing...'; // Change button text
+            updateStatus('Uploading file...', true, 'info');
+            downloadLink.style.display = 'none';
+
+            const formData = new FormData();
+            formData.append('videoFile', videoFile.files[0]);
+            formData.append('compression', compressionLevel.value);
+            formData.append('resolution', outputResolution.value);
+
+            try {
+                updateStatus('Converting video... This may take a moment.', true, 'info');
+                const response = await fetch('/upload', {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                if (!response.ok) {
+                    let errorMessage = `Server error! Status: ${response.status}`;
+                    try {
+                        const errorData = await response.json();
+                        errorMessage = errorData.error || errorMessage;
+                    } catch (e) {
+                        console.warn("Could not parse error response JSON:", e);
+                    }
+                    throw new Error(errorMessage);
+                }
+
+                const data = await response.json();
+                const convertedFilename = data.filename;
+
+                updateStatus('Conversion successful! Your download is ready.', false, 'success');
+                downloadLink.href = `/download/${convertedFilename}`;
+                downloadLink.download = convertedFilename; // Suggest filename
+                downloadLink.style.display = 'block'; // Show download link as block
+
+            } catch (error) {
+                console.error('Error during conversion:', error);
+                updateStatus(`Error: ${error.message}`, false, 'error');
+            } finally {
+                convertButton.disabled = false;
+                convertButton.innerHTML = '🚀 Convert to MP4'; // Restore button text/icon
+                spinner.style.display = 'none';
+            }
+        });
+
+        // Reset status when a new file is selected
+        videoFile.addEventListener('change', () => {
+            updateStatus('Ready to convert your video!', false, 'info');
+            downloadLink.style.display = 'none';
+            convertButton.disabled = false;
+            convertButton.innerHTML = '🚀 Convert to MP4';
+        });
+    </script>
+
+</body>
+</html>
