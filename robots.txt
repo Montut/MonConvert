@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+# Disallow temporary or backend-specific paths if they exist
+# Adjust these if your actual temporary/API paths differ
+Disallow: /temp/
+Disallow: /api/
+Disallow: /uploads/
+Disallow: /converted/
+
+# Sitemap location
+Sitemap: https://montutconverttools.com/sitemap.xml

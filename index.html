@@ -1,22 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+<!-- === START: Updated <head> Section === -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- SEO Meta Tags & Branding -->
-    <title>Montut Convert MP4 - Fast & Free Online Video to MP4 Converter</title>
-    <meta name="description" content="Convert your videos to MP4 online for free with Montut Convert MP4. Secure, fast, high-quality conversion with compression and resolution options.">
+    <!-- SEO Meta Tags -->
+    <title>Montut Convert Tools - Free Online Video to MP4 Converter</title>
+    <meta name="description" content="Easily convert WEBM, MOV, AVI, and other video formats to high-quality MP4 online for free with Montut Convert Tools. Secure, fast, and simple conversion.">
+    <meta name="robots" content="index, follow"> <!-- Allow search engines to crawl and index -->
 
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="Montut Convert MP4 - Free Online Video Converter">
-    <meta property="og:description" content="Easily convert videos to MP4 online. Choose quality settings and download instantly.">
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <!-- Consider adding apple-touch-icon links as well for iOS devices -->
+    <!-- <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"> -->
+
+    <!-- Open Graph Meta Tags (for Facebook, LinkedIn, etc.) -->
+    <meta property="og:title" content="Montut Convert Tools - Free Online Video to MP4 Converter">
+    <meta property="og:description" content="Convert WEBM, MOV, AVI, and more to MP4 online. Fast, free, and secure video conversion.">
     <meta property="og:type" content="website">
-    <!-- <meta property="og:image" content="url_to_your_preview_image.jpg"> -->
-    <!-- <meta property="og:url" content="your_website_url"> -->
+    <meta property="og:url" content="https://montutconverttools.com/">
+    <!-- <meta property="og:image" content="https://montutconverttools.com/og-image.jpg"> --> <!-- Replace with your actual preview image URL -->
+    <!-- <meta property="og:image:width" content="1200"> -->
+    <!-- <meta property="og:image:height" content="630"> -->
+    <meta property="og:site_name" content="Montut Convert Tools">
 
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image"> <!-- Use 'summary' if you don't have a large image -->
+    <meta name="twitter:title" content="Montut Convert Tools - Free Online Video to MP4 Converter">
+    <meta name="twitter:description" content="Convert WEBM, MOV, AVI, and more to MP4 online. Fast, free, and secure video conversion.">
+    <!-- <meta name="twitter:image" content="https://montutconverttools.com/twitter-image.jpg"> --> <!-- Replace with your actual Twitter preview image URL -->
+    <!-- <meta name="twitter:site" content="@YourTwitterHandle"> --> <!-- Optional: Your Twitter handle -->
+
+    <!-- Link to your CSS (assuming it's within the <style> tags for now) -->
     <style>
-        /* Enhanced Styling */
+        /* Enhanced Styling (Keep existing styles here) */
         :root {
             --primary-color: #4a90e2; /* Softer Blue */
             --primary-hover: #357abd;
@@ -32,6 +51,7 @@
             --header-gradient: linear-gradient(135deg, #4a90e2 0%, #63a4ff 100%);
             --box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
         }
+        /* ... rest of your existing CSS ... */
 
         *, *::before, *::after {
             box-sizing: border-box;
@@ -321,8 +341,57 @@
             .stats-container { flex-direction: column; gap: 15px; }
         }
 
+        /* Style for Privacy Disclaimer */
+        .privacy-disclaimer {
+            font-size: 0.85em;
+            color: var(--dark-gray);
+            background-color: var(--medium-gray);
+            padding: 10px 15px;
+            border-radius: 6px;
+            margin-top: 20px;
+            text-align: left;
+            border-left: 4px solid var(--primary-color);
+        }
+        .privacy-disclaimer strong {
+            color: var(--text-color);
+        }
+
+        /* Style for Donation Section */
+        .donation-section {
+            background-color: #fff3cd; /* Light yellow background */
+            border: 1px solid #ffeeba;
+            color: #856404; /* Dark yellow text */
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 30px auto 0 auto; /* Margin top, centered horizontally */
+            max-width: 600px; /* Limit width */
+        }
+        .donation-section p {
+            margin: 0 0 15px 0; /* Space below text */
+            font-size: 1.05em;
+        }
+        .donation-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--secondary-color); /* Use accent color */
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 20px; /* Pill shape */
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+        }
+        .donation-button:hover {
+            background-color: #e69500; /* Darker orange */
+            transform: scale(1.03);
+        }
+        .donation-button .icon {
+            margin-right: 8px;
+        }
+
     </style>
 </head>
+<!-- === END: Updated <head> Section === -->
 <body>
 
     <header class="page-header">
@@ -358,6 +427,12 @@
                 <!-- Submit Button -->
                 <button type="submit" id="convertButton">🚀 Convert to MP4</button>
             </form>
+
+            <!-- === START: Privacy Disclaimer === -->
+            <div class="privacy-disclaimer">
+                <strong>Privacy Note:</strong> Your uploaded videos are processed temporarily for conversion and are <strong>never stored or saved</strong> on our servers. All files are automatically deleted after processing.
+            </div>
+            <!-- === END: Privacy Disclaimer === -->
 
             <!-- Status Display Area -->
             <div id="status">
@@ -417,6 +492,15 @@
             </section>
         </aside>
     </main>
+
+    <!-- === START: Donation Section === -->
+    <section class="donation-section">
+        <p>Enjoy using Montut Convert Tools? Support future development and keep the servers running!</p>
+        <a href="https://buymeacoffee.com/montut" target="_blank" rel="noopener noreferrer" class="donation-button">
+            <span class="icon">☕</span> Buy Me a Coffee
+        </a>
+    </section>
+    <!-- === END: Donation Section === -->
 
     <footer class="page-footer">
         <a href="#privacy">Privacy Policy</a> |
