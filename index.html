@@ -258,6 +258,47 @@
             border-radius: 6px;
         }
 
+        /* Progress Bar */
+        progress#progressBar {
+            width: 100%;
+            margin-top: 15px;
+            height: 10px;
+            display: none; /* Hidden initially */
+            border-radius: 5px;
+            overflow: hidden; /* Ensures the fill respects the border radius */
+        }
+        /* Style the progress bar appearance */
+        progress#progressBar::-webkit-progress-bar {
+            background-color: var(--medium-gray);
+            border-radius: 5px;
+        }
+        progress#progressBar::-webkit-progress-value {
+            background-color: var(--primary-color);
+            border-radius: 5px;
+            transition: width 0.1s linear;
+        }
+        progress#progressBar::-moz-progress-bar { /* Firefox */
+            background-color: var(--primary-color);
+            border-radius: 5px;
+            transition: width 0.1s linear;
+        }
+
+        /* Output Info Area */
+        #outputInfo {
+            margin-top: 15px;
+            padding: 10px 15px;
+            background-color: #e8f6f3; /* Light cyan */
+            border-left: 4px solid #1abc9c; /* Teal */
+            border-radius: 4px;
+            font-size: 0.9em;
+            display: none; /* Hidden initially */
+            word-wrap: break-word;
+        }
+        #outputInfo strong {
+            color: #16a085; /* Darker teal */
+        }
+
+
         /* Remove Ad Placeholder CSS */
         /* #ad-placeholder { ... } */
 
@@ -397,13 +438,15 @@
     <!-- Google AdSense Script -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5213336778723560"
          crossorigin="anonymous"></script>
+    <!-- Load ffmpeg.wasm -->
+    <script src="https://unpkg.com/@ffmpeg/ffmpeg@0.11.0/dist/ffmpeg.min.js"></script>
 </head>
 <!-- === END: Updated <head> Section === -->
 <body>
 
     <header class="page-header">
-        <h1>Montut Convert MP4</h1>
-        <p>Your simple, fast, and free solution for converting videos to MP4 online.</p>
+        <h1>Montut Convert Tools</h1>
+        <p>Your simple, fast, and free solution for converting videos directly in your browser.</p>
     </header>
 
     <main class="main-content">
@@ -431,24 +474,37 @@
                     <option value="480p">480p (Standard Definition)</option>
                 </select>
 
+                <!-- Output Format Selection -->
+                <label for="outputFormat">4. Choose Output Format:</label>
+                <select id="outputFormat" name="outputFormat">
+                    <option value="mp4" selected>MP4 (Video)</option>
+                    <option value="gif">GIF (Animated Image)</option>
+                </select>
+
                 <!-- Submit Button -->
-                <button type="submit" id="convertButton">🚀 Convert to MP4</button>
+                <button type="button" id="convertButton">🚀 Convert Now</button> <!-- Changed type to button -->
             </form>
 
             <!-- === START: Privacy Disclaimer === -->
             <div class="privacy-disclaimer">
-                <strong>Privacy Note:</strong> Your uploaded videos are processed temporarily for conversion and are <strong>never stored or saved</strong> on our servers. All files are automatically deleted after processing.
+                <strong>Privacy Note:</strong> Your files are processed <strong>entirely within your browser</strong> using WebAssembly. They are <strong>never uploaded</strong> to our servers, ensuring maximum privacy.
             </div>
             <!-- === END: Privacy Disclaimer === -->
 
             <!-- Status Display Area -->
             <div id="status">
                 <div class="spinner" id="spinner"></div>
-                <span id="statusText">Ready to convert your video!</span>
+                <span id="statusText">Loading converter... Please wait.</span>
             </div>
 
+            <!-- Progress Bar -->
+            <progress id="progressBar" value="0" max="100"></progress>
+
+            <!-- Output Info Area -->
+            <div id="outputInfo"></div>
+
             <!-- Download Link Area -->
-            <a id="downloadLink" href="#" download>⬇️ Download Converted MP4</a>
+            <a id="downloadLink" href="#" download>⬇️ Download Converted File</a>
         </section>
 
         <!-- Sidebar / Info Area -->
@@ -457,11 +513,12 @@
             <section class="info-section">
                 <h2>Why Choose Us?</h2>
                 <ul class="features-list">
-                    <li><span class="icon">🔒</span> Secure & Private Uploads (Files deleted after conversion)</li>
-                    <li><span class="icon">⚡</span> Lightning-Fast Conversion</li>
-                    <li><span class="icon">✨</span> High-Quality MP4 Output</li>
-                    <li><span class="icon">⚙️</span> Customizable Settings</li>
+                    <li><span class="icon">🔒</span> 100% Private (Conversion happens in your browser, no uploads!)</li>
+                    <li><span class="icon">⚡</span> Fast Client-Side Processing</li>
+                    <li><span class="icon">✨</span> High-Quality MP4 & GIF Output</li>
+                    <li><span class="icon">⚙️</span> Customizable Settings (Quality/Resolution)</li>
                     <li><span class="icon">📱</span> Mobile Friendly Design</li>
+                    <li><span class="icon">📶</span> Works Offline (After first load)</li>
                 </ul>
             </section>
 
@@ -486,12 +543,13 @@
 
             <!-- How It Works Section -->
             <section class="how-to-section">
-                <h2>How It Works</h2>
+                <h2>How It Works (Client-Side)</h2>
                 <ol class="how-to-steps">
-                    <li><span class="step-number">1</span> Upload your video file.</li>
-                    <li><span class="step-number">2</span> Select desired quality options.</li>
-                    <li><span class="step-number">3</span> Click "Convert to MP4".</li>
-                    <li><span class="step-number">4</span> Download your converted file!</li>
+                    <li><span class="step-number">1</span> Choose your video file.</li>
+                    <li><span class="step-number">2</span> Select quality & format options.</li>
+                    <li><span class="step-number">3</span> Click "Convert Now".</li>
+                    <li><span class="step-number">4</span> Wait for browser processing.</li>
+                    <li><span class="step-number">5</span> Download your converted file!</li>
                 </ol>
             </section>
         </aside>
@@ -510,100 +568,250 @@
         <a href="#privacy">Privacy Policy</a> |
         <a href="#terms">Terms of Service</a> |
         <a href="#contact">Contact Us</a>
-        <p>&copy; 2025 Montut Convert MP4. All rights reserved.</p>
+        <p>&copy; 2025 Montut Convert Tools. All rights reserved.</p>
     </footer>
 
     <script>
-        // Get references to DOM elements
-        const uploadForm = document.getElementById('uploadForm');
-        const videoFile = document.getElementById('videoFile');
-        const compressionLevel = document.getElementById('compressionLevel');
-        const outputResolution = document.getElementById('outputResolution');
+        const { createFFmpeg, fetchFile } = FFmpeg; // Destructure from FFmpeg loaded via CDN
+        let ffmpeg; // Keep ffmpeg instance reusable
+        let isFFmpegLoaded = false;
+
+        // DOM Elements
+        const videoFileInput = document.getElementById('videoFile');
+        const compressionLevelSelect = document.getElementById('compressionLevel');
+        const outputResolutionSelect = document.getElementById('outputResolution');
+        const outputFormatSelect = document.getElementById('outputFormat');
         const convertButton = document.getElementById('convertButton');
         const statusDiv = document.getElementById('status');
         const statusText = document.getElementById('statusText');
         const spinner = document.getElementById('spinner');
+        const progressBar = document.getElementById('progressBar');
+        const outputInfoDiv = document.getElementById('outputInfo');
         const downloadLink = document.getElementById('downloadLink');
 
+        // --- Helper Functions ---
+
         // Function to update status display
-        function updateStatus(message, showSpinner = false, statusType = 'info') { // statusType: 'info', 'success', 'error'
+        function updateStatus(message, showSpinner = false, statusType = 'info') {
             statusText.textContent = message;
-            spinner.style.display = showSpinner ? 'inline-block' : 'none'; // Use inline-block for spinner
-
-            // Reset status classes
-            statusDiv.classList.remove('status-success', 'status-error');
-
+            spinner.style.display = showSpinner ? 'inline-block' : 'none';
+            statusDiv.classList.remove('status-success', 'status-error'); // Reset classes
             if (statusType === 'success') {
                 statusDiv.classList.add('status-success');
             } else if (statusType === 'error') {
                 statusDiv.classList.add('status-error');
             }
-            // 'info' uses default styling (no extra class)
+            // 'info' uses default styling
+            console.log(`Status (${statusType}): ${message}`); // Console log for debugging
         }
 
-        // Add event listener for form submission
-        uploadForm.addEventListener('submit', async (event) => {
-            event.preventDefault();
+        // Function to initialize FFmpeg instance
+        const initializeFFmpeg = async () => {
+            if (!ffmpeg) {
+                console.log("Creating FFmpeg instance...");
+                ffmpeg = createFFmpeg({
+                    log: true, // Enable ffmpeg logging in console
+                    corePath: 'https://unpkg.com/@ffmpeg/core@0.11.0/dist/ffmpeg-core.js',
+                });
+            }
+            if (!ffmpeg.isLoaded()) {
+                updateStatus('Loading converter core... (First load may take a moment)', true, 'info');
+                progressBar.style.display = 'none';
+                try {
+                    await ffmpeg.load();
+                    isFFmpegLoaded = true;
+                    updateStatus('Converter ready. Select file and options.', false, 'success');
+                    convertButton.disabled = false; // Enable button once loaded
+                } catch (error) {
+                    console.error("Error loading ffmpeg:", error);
+                    updateStatus(`Error loading converter: ${error.message}. Try refreshing or use a different browser.`, false, 'error');
+                    isFFmpegLoaded = false;
+                    convertButton.disabled = true; // Keep disabled if load fails
+                    throw error;
+                }
+            } else {
+                 updateStatus('Converter ready. Select file and options.', false, 'success');
+                 convertButton.disabled = false;
+            }
+        };
 
-            if (!videoFile.files || videoFile.files.length === 0) {
+        // --- Event Listeners ---
+
+        // Initialize FFmpeg on page load
+        document.addEventListener('DOMContentLoaded', async () => {
+            convertButton.disabled = true; // Disable button initially
+            await initializeFFmpeg();
+
+             // Check for SharedArrayBuffer support
+            if (typeof SharedArrayBuffer === 'undefined') {
+                console.warn("SharedArrayBuffer is not available. FFmpeg.wasm performance might be limited or it might not work.");
+                updateStatus('Warning: Your browser might lack features for optimal performance (SharedArrayBuffer). Conversion might be slow or fail.', false, 'error');
+                // Keep button enabled if ffmpeg loaded, but warn user
+                if(isFFmpegLoaded) convertButton.disabled = false;
+            }
+        });
+
+        // Conversion logic on button click
+        convertButton.addEventListener('click', async () => {
+            const file = videoFileInput.files[0];
+            const outputFormat = outputFormatSelect.value;
+            const compression = compressionLevelSelect.value;
+            const resolution = outputResolutionSelect.value;
+
+            if (!file) {
                 updateStatus('Please select a video file first.', false, 'error');
                 return;
             }
+            if (!isFFmpegLoaded) {
+                 updateStatus('Converter core not loaded. Please wait or refresh.', false, 'error');
+                 return;
+            }
 
-            // Disable button and update status
             convertButton.disabled = true;
-            convertButton.innerHTML = 'Processing...'; // Change button text
-            updateStatus('Uploading file...', true, 'info');
+            convertButton.innerHTML = 'Processing...';
             downloadLink.style.display = 'none';
-
-            const formData = new FormData();
-            formData.append('videoFile', videoFile.files[0]);
-            formData.append('compression', compressionLevel.value);
-            formData.append('resolution', outputResolution.value);
+            outputInfoDiv.style.display = 'none';
+            progressBar.style.display = 'none';
+            progressBar.value = 0;
 
             try {
-                updateStatus('Converting video... This may take a moment.', true, 'info');
-                const response = await fetch('/upload', {
-                    method: 'POST',
-                    body: formData,
-                });
-
-                if (!response.ok) {
-                    let errorMessage = `Server error! Status: ${response.status}`;
-                    try {
-                        const errorData = await response.json();
-                        errorMessage = errorData.error || errorMessage;
-                    } catch (e) {
-                        console.warn("Could not parse error response JSON:", e);
-                    }
-                    throw new Error(errorMessage);
+                // 1. Load file into ffmpeg's virtual file system
+                updateStatus(`Loading file "${file.name}"...`, true, 'info');
+                const inputFileName = `input.${file.name.split('.').pop() || 'vid'}`;
+                const outputFileName = `output.${outputFormat}`;
+                let fileData;
+                try {
+                    fileData = await fetchFile(file);
+                    ffmpeg.FS('writeFile', inputFileName, fileData);
+                } catch (error) {
+                    console.error("Error reading file:", error);
+                    throw new Error(`Failed to read input file: ${error.message}`);
                 }
 
-                const data = await response.json();
-                const convertedFilename = data.filename;
+                // 2. Setup Progress Handler
+                ffmpeg.setProgress(({ ratio }) => {
+                    if (ratio >= 0 && ratio <= 1) {
+                        progressBar.style.display = 'block';
+                        progressBar.value = ratio * 100;
+                        updateStatus(`Converting... ${Math.round(ratio * 100)}%`, true, 'info');
+                    } else {
+                        progressBar.style.display = 'none'; // Hide if ratio is invalid
+                    }
+                });
 
-                updateStatus('Conversion successful! Your download is ready.', false, 'success');
-                downloadLink.href = `/download/${convertedFilename}`;
-                downloadLink.download = convertedFilename; // Suggest filename
-                downloadLink.style.display = 'block'; // Show download link as block
+                // 3. Construct and run the FFmpeg command
+                updateStatus('Starting conversion... (This can take time)', true, 'info');
+                const startTime = performance.now();
+
+                let command = ['-i', inputFileName];
+
+                // --- Add MP4 specific options ---
+                if (outputFormat === 'mp4') {
+                    // Compression (CRF)
+                    if (compression === 'low') command.push('-crf', '18');
+                    else if (compression === 'high') command.push('-crf', '28');
+                    else command.push('-crf', '23'); // Medium default
+
+                    // Resolution Scaling (only if not 'original')
+                    if (resolution === '1080p') command.push('-vf', 'scale=-2:1080');
+                    else if (resolution === '720p') command.push('-vf', 'scale=-2:720');
+                    else if (resolution === '480p') command.push('-vf', 'scale=-2:480');
+
+                    // Standard MP4 options
+                    command.push(
+                        '-c:v', 'libx264',
+                        '-preset', 'ultrafast', // Faster encoding in browser
+                        '-c:a', 'aac',
+                        '-b:a', '128k',
+                        '-movflags', '+faststart'
+                    );
+                }
+                // --- Add GIF specific options ---
+                else if (outputFormat === 'gif') {
+                    let vfOptions = ['fps=15']; // Default fps for GIF
+                    // Apply scaling for GIF based on resolution dropdown
+                    if (resolution === '1080p') vfOptions.push('scale=-2:1080');
+                    else if (resolution === '720p') vfOptions.push('scale=-2:720');
+                    else if (resolution === '480p') vfOptions.push('scale=-2:480');
+                    else vfOptions.push('scale=480:-1'); // Default scale if original/other
+
+                    vfOptions.push('flags=lanczos');
+                    command.push('-vf', vfOptions.join(','));
+                    command.push('-c:v', 'gif');
+                    updateStatus('Starting GIF conversion... (May be slow)', true, 'info');
+                } else {
+                    throw new Error("Unsupported output format.");
+                }
+
+                command.push(outputFileName); // Add output file name
+
+                console.log("Running FFmpeg command:", command.join(' '));
+                await ffmpeg.run(...command);
+
+                const endTime = performance.now();
+                const duration = ((endTime - startTime) / 1000).toFixed(2);
+
+                // 4. Read the result
+                updateStatus('Conversion finished. Preparing download...', false, 'success');
+                progressBar.style.display = 'none';
+                const data = ffmpeg.FS('readFile', outputFileName);
+
+                // 5. Create download link
+                const blob = new Blob([data.buffer], { type: outputFormat === 'mp4' ? 'video/mp4' : 'image/gif' });
+                const url = URL.createObjectURL(blob);
+
+                downloadLink.href = url;
+                downloadLink.download = outputFileName;
+                downloadLink.style.display = 'block';
+
+                // 6. Display output info
+                const outputFileSize = (blob.size / 1024 / 1024).toFixed(2);
+                outputInfoDiv.innerHTML = `
+                    <strong>Conversion Details:</strong><br>
+                    Original File: ${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)<br>
+                    Output File: ${outputFileName} (${outputFileSize} MB)<br>
+                    Conversion Time: ${duration} seconds
+                `;
+                outputInfoDiv.style.display = 'block';
+                updateStatus('Done! Click the link below to download.', false, 'success');
+
+                // 7. Cleanup virtual file system
+                try {
+                    ffmpeg.FS('unlink', inputFileName);
+                    ffmpeg.FS('unlink', outputFileName);
+                } catch (e) {
+                    console.warn("Could not unlink files.", e);
+                }
 
             } catch (error) {
-                console.error('Error during conversion:', error);
-                updateStatus(`Error: ${error.message}`, false, 'error');
+                console.error('Conversion Error:', error);
+                updateStatus(`Error: ${error.message}. Check console for details.`, false, 'error');
+                progressBar.style.display = 'none';
             } finally {
                 convertButton.disabled = false;
-                convertButton.innerHTML = '🚀 Convert to MP4'; // Restore button text/icon
-                spinner.style.display = 'none';
+                convertButton.innerHTML = '🚀 Convert Now';
+                // Ensure progress handler is removed or reset if necessary,
+                // though re-assigning it on next run should be fine.
+                ffmpeg.setProgress(() => {}); // Clear progress handler
             }
         });
 
         // Reset status when a new file is selected
-        videoFile.addEventListener('change', () => {
-            updateStatus('Ready to convert your video!', false, 'info');
+        videoFileInput.addEventListener('change', () => {
+            if (isFFmpegLoaded) {
+                updateStatus('Ready to convert.', false, 'success');
+            } else {
+                 updateStatus('Converter core loading or failed. Please wait or refresh.', false, 'error');
+            }
             downloadLink.style.display = 'none';
-            convertButton.disabled = false;
-            convertButton.innerHTML = '🚀 Convert to MP4';
+            outputInfoDiv.style.display = 'none';
+            progressBar.style.display = 'none';
+            progressBar.value = 0;
+            // Keep button disabled until ffmpeg is loaded
+            convertButton.disabled = !isFFmpegLoaded;
+            convertButton.innerHTML = '🚀 Convert Now';
         });
+
     </script>
 
 </body>
